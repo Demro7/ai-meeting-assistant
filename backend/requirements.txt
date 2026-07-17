@@ -1,0 +1,17 @@
+# AI Meeting Assistant — Backend
+# ====================================
+# FastAPI server for Arabic audio transcription and campaign insight extraction.
+#
+# Architecture:
+#   1. Receives .webm audio file from the Chrome Extension
+#   2. Transcribes Arabic speech via Groq API (Whisper-large-v3)
+#   3. Extracts summary, action items, and campaign budgets via Groq (Llama-3)
+#   4. Returns structured JSON for downstream consumption (n8n → ClickUp/Slack)
+
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+groq>=0.9.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0

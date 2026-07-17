@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Offscreen Recorder</title></head>
+<body>
+  <!-- 
+    This is a hidden offscreen document. It is NEVER visible to the user.
+    It exists solely to provide DOM APIs (MediaRecorder, AudioContext)
+    that are unavailable in the Manifest V3 service worker.
+  -->
+  <script src="offscreen.js"></script>
+</body>
+</html>

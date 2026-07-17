@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 300px;
+      padding: 20px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(145deg, #1a1a2e, #16213e);
+      color: #e0e0e0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .header .logo { font-size: 28px; }
+    .header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #00d4ff;
+      letter-spacing: 0.5px;
+    }
+    .status-bar {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+      flex-shrink: 0;
+    }
+    .status-dot.recording {
+      background: #f44336;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(244,67,54,0.5); }
+      50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(244,67,54,0); }
+    }
+    #timer {
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      color: #aaa;
+      margin-left: auto;
+    }
+
+    /* ─── Mic Permission Banner ─── */
+    .mic-banner {
+      background: rgba(255, 152, 0, 0.12);
+      border: 1px solid rgba(255, 152, 0, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #ffb74d;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mic-banner .icon { font-size: 16px; flex-shrink: 0; }
+    .mic-banner.granted {
+      background: rgba(76, 175, 80, 0.12);
+      border-color: rgba(76, 175, 80, 0.3);
+      color: #81c784;
+    }
+    #grantMicBtn {
+      background: linear-gradient(135deg, #ff9800, #f57c00);
+      color: #fff;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: auto;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    #grantMicBtn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(255,152,0,0.4); }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+    }
+    #startBtn {
+      background: linear-gradient(135deg, #00d4ff, #0090ff);
+      color: #fff;
+    }
+    #startBtn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,144,255,0.4); }
+    #startBtn:disabled {
+      background: #333;
+      color: #666;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    #stopBtn {
+      background: linear-gradient(135deg, #ff4757, #c0392b);
+      color: #fff;
+      display: none;
+    }
+    #stopBtn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(255,71,87,0.4); }
+    .footer {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 11px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🤖</span>
+    <h3>AI Meeting Assistant</h3>
+  </div>
+
+  <!-- Microphone Permission Banner -->
+  <div class="mic-banner" id="micBanner">
+    <span class="icon">🎙️</span>
+    <span id="micStatusText">Microphone access required</span>
+    <button id="grantMicBtn">Grant</button>
+  </div>
+
+  <div class="status-bar">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">Ready to record</span>
+    <span id="timer">00:00</span>
+  </div>
+
+  <button id="startBtn">▶ Start Capture (Tab + Mic)</button>
+  <button id="stopBtn">⏹ Stop & Download</button>
+
+  <div class="footer">v1.0 — Tab + Mic Audio Mixing</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "AI Meeting Assistant",
+  "version": "1.0.0",
+  "description": "Silently record Google Meet sessions (tab + microphone), transcribe Arabic audio, and extract structured meeting insights.",
+  "permissions": [
+    "tabCapture",
+    "activeTab",
+    "storage",
+    "downloads",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://meet.google.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
