@@ -19,22 +19,22 @@ sequenceDiagram
     participant User as User (Popup UI)
     participant Pop as Popup Context (popup.js)
     participant BG as Background Context (background.js)
-    participant Off as Offscreen Document (offscreen.js)
+    participant Offscr as Offscreen Document (offscreen.js)
     participant API as FastAPI Backend (main.py)
     participant Groq as Groq AI Cloud Services
 
     User->>Pop: Click "Start Capture"
     Pop->>Pop: Request tabCapture Stream ID (User Gesture)
     Pop->>BG: Send Stream ID + Mic Permission State
-    BG->>Off: Instantiate Offscreen Doc & Forward Parameters
-    Off->>Off: Mix Tab Audio + Microphone inputs (AudioContext)
-    Off->>Off: MediaRecorder starts recording mixed stream
-    Note over Off: Recording meeting session...
+    BG->>Offscr: Instantiate Offscreen Doc & Forward Parameters
+    Offscr->>Offscr: Mix Tab Audio + Microphone inputs (AudioContext)
+    Offscr->>Offscr: MediaRecorder starts recording mixed stream
+    Note over Offscr: Recording meeting session...
     User->>Pop: Click "Stop & Download"
     Pop->>BG: Send Stop Capture command
-    BG->>Off: Forward Stop Capture command
-    Off->>Off: Finalize audio Blob & encode to base64 Data URL
-    Off->>BG: Return Data URL
+    BG->>Offscr: Forward Stop Capture command
+    Offscr->>Offscr: Finalize audio Blob & encode to base64 Data URL
+    Offscr->>BG: Return Data URL
     BG->>User: Download .webm recording via Downloads API
     User->>API: Upload .webm to /api/v1/analyze
     API->>Groq: Transcribe Arabic audio (Whisper-large-v3)
